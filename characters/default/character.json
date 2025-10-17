@@ -1,0 +1,43 @@
+{
+  "id": "clippy-classic",
+  "name": "Classic Clippy",
+  "author": "Clippy Revival Team",
+  "version": "1.0.0",
+  "description": "The classic Microsoft Office Assistant paperclip",
+  "display": {
+    "width": 120,
+    "height": 120,
+    "anchorX": 60,
+    "anchorY": 60
+  },
+  "animations": {
+    "idle": {
+      "type": "svg",
+      "loop": true,
+      "duration": 2000
+    },
+    "speak": {
+      "type": "svg",
+      "loop": false,
+      "duration": 500
+    },
+    "think": {
+      "type": "svg",
+      "loop": true,
+      "duration": 2000
+    },
+    "wave": {
+      "type": "svg",
+      "loop": false,
+      "duration": 1000
+    },
+    "notify": {
+      "type": "svg",
+      "loop": false,
+      "duration": 800
+    }
+  },
+  "sounds": {
+    "enabled": false
+  }
+}
