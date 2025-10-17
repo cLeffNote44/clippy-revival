@@ -16,11 +16,19 @@
     "package": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1",
     "package:quick": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1 -SkipBackend",
     "postinstall": "electron-builder install-app-deps",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:backend": "cd backend && pytest tests/",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:all": "npm run test && npm run test:backend && npm run test:e2e",
     "lint": "eslint src --ext .js,.jsx",
     "lint:fix": "eslint src --ext .js,.jsx --fix",
+    "lint:python": "cd backend && ruff check . && black --check .",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,json,css}\""
+    "format:check": "prettier --check \"src/**/*.{js,jsx,json,css}\"",
+    "format:python": "cd backend && black . && ruff check . --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",

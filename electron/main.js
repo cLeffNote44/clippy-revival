@@ -122,7 +122,15 @@ function createDashboardWindow() {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      webSecurity: true
+      nodeIntegrationInWorker: false,
+      nodeIntegrationInSubFrames: false,
+      webSecurity: true,
+      sandbox: true,
+      webviewTag: false,
+      enableRemoteModule: false,
+      allowRunningInsecureContent: false,
+      experimentalFeatures: false,
+      navigateOnDragDrop: false
     }
   });
 
@@ -133,6 +141,27 @@ function createDashboardWindow() {
   } else {
     dashboardWindow.loadFile(path.join(__dirname, '..', 'dist', 'index.html'));
   }
+
+  // Set Content Security Policy
+  dashboardWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': [
+          "default-src 'self';",
+          "script-src 'self' 'unsafe-inline';",  // unsafe-inline needed for React in dev
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",  // MUI styles
+          "font-src 'self' https://fonts.gstatic.com;",
+          "img-src 'self' data: blob:;",
+          "connect-src 'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:*;",
+          "frame-src 'none';",
+          "object-src 'none';",
+          "base-uri 'self';",
+          "form-action 'self';"
+        ].join(' ')
+      }
+    });
+  });
 
   dashboardWindow.on('ready-to-show', () => {
     dashboardWindow.show();
@@ -165,7 +194,15 @@ function createBuddyWindow() {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      webSecurity: true
+      nodeIntegrationInWorker: false,
+      nodeIntegrationInSubFrames: false,
+      webSecurity: true,
+      sandbox: true,
+      webviewTag: false,
+      enableRemoteModule: false,
+      allowRunningInsecureContent: false,
+      experimentalFeatures: false,
+      navigateOnDragDrop: false
     }
   });
 
@@ -177,6 +214,24 @@ function createBuddyWindow() {
       hash: '/buddy'
     });
   }
+
+  // Set Content Security Policy
+  buddyWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': [
+          "default-src 'self';",
+          "script-src 'self' 'unsafe-inline';",
+          "style-src 'self' 'unsafe-inline';",
+          "img-src 'self' data: blob:;",
+          "connect-src 'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:*;",
+          "frame-src 'none';",
+          "object-src 'none';"
+        ].join(' ')
+      }
+    });
+  });
 
   // Make window draggable
   buddyWindow.on('closed', () => {
