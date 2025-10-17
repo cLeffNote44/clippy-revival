@@ -34,10 +34,12 @@ async def lifespan(app: FastAPI):
     print("Starting background services...")
     asyncio.create_task(system_service.start_monitoring(ws_manager))
     
-    # Start scheduler service
+    # Start scheduler service with default handlers
     scheduler = get_scheduler_service()
+    from services.task_handlers import register_default_handlers
+    register_default_handlers(scheduler)
     await scheduler.start()
-    print("Scheduler service started")
+    print("Scheduler service started with default handlers")
     
     yield
     

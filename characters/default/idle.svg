@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="clipGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c0c0c0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#808080;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Paperclip body -->
+  <path d="M 30 30 Q 30 15, 45 15 L 75 15 Q 90 15, 90 30 L 90 80 Q 90 95, 75 95 L 45 95 Q 30 95, 30 80 L 30 50" 
+        fill="none" 
+        stroke="url(#clipGradient)" 
+        stroke-width="8" 
+        stroke-linecap="round" />
+  
+  <!-- Inner paperclip curve -->
+  <path d="M 40 40 Q 40 30, 50 30 L 70 30 Q 80 30, 80 40 L 80 75 Q 80 85, 70 85 L 50 85 Q 40 85, 40 75 L 40 55" 
+        fill="none" 
+        stroke="url(#clipGradient)" 
+        stroke-width="6" 
+        stroke-linecap="round" />
+  
+  <!-- Eyes -->
+  <circle cx="50" cy="45" r="8" fill="white" />
+  <circle cx="70" cy="45" r="8" fill="white" />
+  <circle cx="52" cy="47" r="4" fill="black" />
+  <circle cx="68" cy="47" r="4" fill="black" />
+  
+  <!-- Eyebrows (animated) -->
+  <path d="M 45 38 Q 50 35, 55 38" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="2" 
+        stroke-linecap="round">
+    <animate attributeName="d" 
+             values="M 45 38 Q 50 35, 55 38;M 45 36 Q 50 33, 55 36;M 45 38 Q 50 35, 55 38" 
+             dur="3s" 
+             repeatCount="indefinite" />
+  </path>
+  <path d="M 65 38 Q 70 35, 75 38" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="2" 
+        stroke-linecap="round">
+    <animate attributeName="d" 
+             values="M 65 38 Q 70 35, 75 38;M 65 36 Q 70 33, 75 36;M 65 38 Q 70 35, 75 38" 
+             dur="3s" 
+             repeatCount="indefinite" />
+  </path>
+  
+  <!-- Smile -->
+  <path d="M 50 60 Q 60 65, 70 60" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="2" 
+        stroke-linecap="round" />
+</svg>

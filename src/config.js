@@ -29,11 +29,11 @@ const config = {
   
   // Feature flags
   features: {
-    scheduler: true,
-    webAutomation: true,
-    softwareManagement: true,
-    characterPacks: true,
-    voiceCommands: false // Disabled for now
+    scheduler: process.env.ENABLE_SCHEDULER !== 'false', // Default true
+    webAutomation: process.env.ENABLE_WEB_AUTOMATION !== 'false', // Default true
+    softwareManagement: process.env.ENABLE_SOFTWARE_MANAGEMENT !== 'false', // Default true
+    characterPacks: process.env.ENABLE_CHARACTER_PACKS !== 'false', // Default true
+    voiceCommands: process.env.ENABLE_VOICE_COMMANDS === 'true' // Default false
   },
   
   // System paths
