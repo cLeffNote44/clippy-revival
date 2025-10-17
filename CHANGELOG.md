@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Character system with personality traits and system prompts
+- Task scheduler with cron-like scheduling capabilities
+- Built-in task handlers (system cleanup, health check, backup reminders, log rotation)
+- SVG Clippy character animations
+- Feature flags configurable via environment variables
+
+## [1.1.0] - 2025-01-17
+
+### Added
 - Complete frontend service layer (http.js, api.js, ws.js, config.js)
 - MIT License file
 - Contributing guidelines (CONTRIBUTING.md)
