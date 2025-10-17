@@ -106,7 +106,7 @@ const Characters = () => {
   };
 
   const handleDelete = async (packId) => {
-    if (!window.confirm(`Are you sure you want to delete this character pack?`)) {
+    if (!window.confirm('Are you sure you want to delete this character pack?')) {
       return;
     }
 

@@ -34,8 +34,8 @@ function Dashboard({ activeTab = 'dashboard' }) {
         </Typography>
         <Box sx={{ display: 'flex', gap: 1 }}>
           <Chip 
-            label={isConnected ? "Connected" : "Disconnected"} 
-            color={isConnected ? "success" : "error"}
+            label={isConnected ? 'Connected' : 'Disconnected'} 
+            color={isConnected ? 'success' : 'error'}
             size="small"
           />
           {assistantPaused && (

@@ -48,58 +48,59 @@ export const useAppStore = create((set, get) => ({
           const data = JSON.parse(event.data);
           
           switch (data.type) {
-            case 'system.metrics':
-              set({ systemMetrics: data.payload });
-              break;
+          case 'system.metrics':
+            set({ systemMetrics: data.payload });
+            break;
               
-            case 'ai.response':
-              const { chatHistory } = get();
-              set({ 
-                chatHistory: [...chatHistory, data.payload],
-                isTyping: false,
-                characterState: 'speak'
-              });
-              // Return to idle after speaking
-              setTimeout(() => {
-                if (get().characterState === 'speak') {
-                  set({ characterState: 'idle' });
-                }
-              }, 3000);
-              break;
+          case 'ai.response': {
+            const { chatHistory } = get();
+            set({ 
+              chatHistory: [...chatHistory, data.payload],
+              isTyping: false,
+              characterState: 'speak'
+            });
+            // Return to idle after speaking
+            setTimeout(() => {
+              if (get().characterState === 'speak') {
+                set({ characterState: 'idle' });
+              }
+            }, 3000);
+            break;
+          }
               
-            case 'ai.typing':
-              set({ isTyping: true, characterState: 'think' });
-              break;
+          case 'ai.typing':
+            set({ isTyping: true, characterState: 'think' });
+            break;
               
-            case 'ai.streaming':
-              // While AI is streaming response
-              set({ characterState: 'speak' });
-              break;
+          case 'ai.streaming':
+            // While AI is streaming response
+            set({ characterState: 'speak' });
+            break;
               
-            case 'task.started':
-              set({ characterState: 'work' });
-              break;
+          case 'task.started':
+            set({ characterState: 'work' });
+            break;
               
-            case 'task.success':
-              set({ characterState: 'success' });
-              setTimeout(() => {
-                if (get().characterState === 'success') {
-                  set({ characterState: 'idle' });
-                }
-              }, 2000);
-              break;
+          case 'task.success':
+            set({ characterState: 'success' });
+            setTimeout(() => {
+              if (get().characterState === 'success') {
+                set({ characterState: 'idle' });
+              }
+            }, 2000);
+            break;
               
-            case 'task.error':
-              set({ characterState: 'error' });
-              setTimeout(() => {
-                if (get().characterState === 'error') {
-                  set({ characterState: 'idle' });
-                }
-              }, 3000);
-              break;
+          case 'task.error':
+            set({ characterState: 'error' });
+            setTimeout(() => {
+              if (get().characterState === 'error') {
+                set({ characterState: 'idle' });
+              }
+            }, 3000);
+            break;
               
-            default:
-              console.log('Received WebSocket message:', data);
+          default:
+            console.log('Received WebSocket message:', data);
           }
         };
         

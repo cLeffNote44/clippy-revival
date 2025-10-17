@@ -4,6 +4,7 @@ import wsService from '../services/ws';
 import { aiService } from '../services/api';
 import { useAppStore } from '../store/appStore';
 import CharacterAvatar from '../components/CharacterAvatar';
+import axios from 'axios';
 
 const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:43110';
 
@@ -24,7 +25,7 @@ const ClippySVG = ({ state = 'idle' }) => (
       <circle cx="50" cy="40" r="8" fill="white" />
       <circle cx="70" cy="40" r="8" fill="white" />
       <circle 
-        cx={state === 'think' ? "52" : "50"} 
+        cx={state === 'think' ? '52' : '50'} 
         cy="40" 
         r="4" 
         fill="black"
@@ -33,7 +34,7 @@ const ClippySVG = ({ state = 'idle' }) => (
         }}
       />
       <circle 
-        cx={state === 'think' ? "68" : "70"} 
+        cx={state === 'think' ? '68' : '70'} 
         cy="40" 
         r="4" 
         fill="black"
@@ -64,7 +65,7 @@ const ClippySVG = ({ state = 'idle' }) => (
         <ellipse cx="60" cy="65" rx="8" ry="6" fill="black" />
       ) : (
         <path 
-          d={state === 'idle' ? "M 50 60 Q 60 65 70 60" : "M 50 65 Q 60 60 70 65"}
+          d={state === 'idle' ? 'M 50 60 Q 60 65 70 60' : 'M 50 65 Q 60 60 70 65'}
           fill="none" 
           stroke="black" 
           strokeWidth="2"

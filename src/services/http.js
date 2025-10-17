@@ -62,21 +62,21 @@ http.interceptors.response.use(
     // Handle specific error codes
     if (error.response) {
       switch (error.response.status) {
-        case 401:
-          // Handle unauthorized
-          localStorage.removeItem('auth_token');
-          window.dispatchEvent(new CustomEvent('unauthorized'));
-          break;
-        case 403:
-          // Handle forbidden
-          window.dispatchEvent(new CustomEvent('forbidden'));
-          break;
-        case 500:
-        case 502:
-        case 503:
-          // Handle server errors
-          window.dispatchEvent(new CustomEvent('server-error', { detail: error.response.data }));
-          break;
+      case 401:
+        // Handle unauthorized
+        localStorage.removeItem('auth_token');
+        window.dispatchEvent(new CustomEvent('unauthorized'));
+        break;
+      case 403:
+        // Handle forbidden
+        window.dispatchEvent(new CustomEvent('forbidden'));
+        break;
+      case 500:
+      case 502:
+      case 503:
+        // Handle server errors
+        window.dispatchEvent(new CustomEvent('server-error', { detail: error.response.data }));
+        break;
       }
     }
     

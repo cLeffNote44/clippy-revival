@@ -31,10 +31,10 @@
     "format:python": "cd backend && black . && ruff check . --fix"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.3",
-    "@mui/material": "^5.15.3",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.4",
+    "@mui/material": "^7.3.4",
     "axios": "^1.6.5",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
@@ -57,7 +57,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.9.0",
     "electron": "^38.3.0",
-    "electron-builder": "^24.9.1",
+    "electron-builder": "^26.0.12",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.0",
@@ -114,7 +114,8 @@
           ]
         }
       ],
-      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+      "icon": "assets/icon.png"
     },
     "compression": "normal",
     "asar": true,
