@@ -1,6 +1,9 @@
 // Jest setup file for React Testing Library
 import '@testing-library/jest-dom';
 
+// Mock scrollIntoView which doesn't exist in jsdom
+Element.prototype.scrollIntoView = jest.fn();
+
 // Mock window.electronAPI
 global.electronAPI = {
   getBackendUrl: jest.fn(() => Promise.resolve('http://localhost:43110')),

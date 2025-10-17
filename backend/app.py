@@ -130,6 +130,8 @@ if __name__ == "__main__":
     if sys.version_info < (3, 12):
         print(f"Error: Python 3.12+ is required. You are using Python {sys.version_info.major}.{sys.version_info.minor}")
         sys.exit(1)
+    elif sys.version_info >= (3, 14):
+        print(f"Warning: Python {sys.version_info.major}.{sys.version_info.minor} may have compatibility issues")
     
     # Get port from environment or use default
     port = int(os.environ.get("PORT", 43110))
