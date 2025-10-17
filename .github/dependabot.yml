@@ -1,0 +1,66 @@
+version: 2
+updates:
+  # JavaScript/npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    open-pull-requests-limit: 10
+    groups:
+      production:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "eslint*"
+          - "prettier*"
+          - "*-loader"
+          - "webpack*"
+      dev-tools:
+        patterns:
+          - "eslint*"
+          - "prettier*"
+          - "*-loader"
+          - "webpack*"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    
+  # Python/pip dependencies
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    open-pull-requests-limit: 10
+    groups:
+      production:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "pytest*"
+          - "black"
+          - "ruff"
+          - "mypy"
+      dev-tools:
+        patterns:
+          - "pytest*"
+          - "black"
+          - "ruff"
+          - "mypy"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
