@@ -61,7 +61,7 @@ async function startBackend() {
       });
     } else {
       // In production, run the packaged backend executable
-      const backendPath = path.join(process.resourcesPath, 'backend', 'backend.exe');
+      const backendPath = path.join(process.resourcesPath, 'backend', 'clippy-backend.exe');
       backendProcess = spawn(backendPath, [], {
         env: { ...process.env, PORT: BACKEND_PORT.toString() }
       });

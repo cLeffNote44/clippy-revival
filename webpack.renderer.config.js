@@ -56,7 +56,9 @@ module.exports = (env, argv) => {
         '@components': path.resolve(__dirname, 'src/components'),
         '@services': path.resolve(__dirname, 'src/services'),
         '@pages': path.resolve(__dirname, 'src/pages'),
-        '@assets': path.resolve(__dirname, 'src/assets')
+        '@store': path.resolve(__dirname, 'src/store'),
+        '@config': path.resolve(__dirname, 'src/config.js'),
+        '@assets': path.resolve(__dirname, 'assets')
       }
     },
     plugins: [

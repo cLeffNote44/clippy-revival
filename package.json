@@ -16,7 +16,11 @@
     "package": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1",
     "package:quick": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1 -SkipBackend",
     "postinstall": "electron-builder install-app-deps",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src --ext .js,.jsx",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,json,css}\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",

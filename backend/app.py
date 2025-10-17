@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 import asyncio
 import uvicorn
 import os
+import sys
 from pathlib import Path
 from typing import Dict, List
 
@@ -60,10 +61,14 @@ app = FastAPI(
 # Configure CORS for Electron frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "file://"],  # Dev and prod origins
+    allow_origins=[
+        "http://localhost:5173",  # Dev server
+        "http://127.0.0.1:5173",  # Dev server alt
+    ],  # Note: file:// removed for security - Electron should use IPC
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+    max_age=3600,
 )
 
 # Include routers
@@ -121,6 +126,11 @@ async def websocket_endpoint(websocket: WebSocket):
         ws_manager.disconnect(websocket)
 
 if __name__ == "__main__":
+    # Check Python version
+    if sys.version_info < (3, 12):
+        print(f"Error: Python 3.12+ is required. You are using Python {sys.version_info.major}.{sys.version_info.minor}")
+        sys.exit(1)
+    
     # Get port from environment or use default
     port = int(os.environ.get("PORT", 43110))
     

@@ -46,8 +46,8 @@ A modern revival of Microsoft's Clippy assistant, powered by local AI and built 
 
 ### Prerequisites
 
-- Node.js v20+ and npm v9+
-- Python 3.10-3.12
+- Node.js v20 LTS (20.x) and npm v9+
+- Python 3.12
 - Ollama installed and running
 - Git
 - Windows 10/11
@@ -62,7 +62,7 @@ cd clippy-revival
 # Install frontend dependencies
 npm install
 
-# Setup Python backend
+# Setup Python backend (requires Python 3.12)
 cd backend
 python -m venv venv
 .\venv\Scripts\activate
