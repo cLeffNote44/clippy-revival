@@ -25,10 +25,8 @@ import {
   Check as CheckIcon,
   Info as InfoIcon
 } from '@mui/icons-material';
-import axios from 'axios';
 import CharacterAvatar from '../components/CharacterAvatar';
-
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:43110';
+import { characterService } from '../services/api';
 
 const Characters = () => {
   const [packs, setPacks] = useState([]);
@@ -48,7 +46,7 @@ const Characters = () => {
   const loadPacks = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_BASE}/characters/list`);
+      const response = await characterService.list();
       setPacks(response.data);
       setError(null);
     } catch (err) {
@@ -68,7 +66,7 @@ const Characters = () => {
 
   const handlePreview = async (pack) => {
     try {
-      const response = await axios.get(`${API_BASE}/characters/${pack.id}`);
+      const response = await characterService.get(pack.id);
       setSelectedPack(response.data);
       setPreviewOpen(true);
       setPreviewState('idle');
@@ -93,11 +91,7 @@ const Characters = () => {
 
     try {
       setUploadProgress(true);
-      const response = await axios.post(`${API_BASE}/characters/import`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      const response = await characterService.import(formData);
 
       if (response.data.success) {
         alert(`Successfully imported: ${response.data.pack_id}`);
@@ -117,7 +111,7 @@ const Characters = () => {
     }
 
     try {
-      await axios.delete(`${API_BASE}/characters/${packId}`);
+      await characterService.delete(packId);
       
       if (activePack === packId) {
         setActivePack(null);

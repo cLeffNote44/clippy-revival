@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import axios from 'axios';
+import wsService from '../services/ws';
+import { aiService } from '../services/api';
 import { useAppStore } from '../store/appStore';
 import CharacterAvatar from '../components/CharacterAvatar';
 

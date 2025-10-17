@@ -104,7 +104,8 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_text()
             
             # Handle different message types
-            message = eval(data)  # In production, use json.loads
+            import json
+            message = json.loads(data)  # Safe JSON parsing
             
             if message.get("type") == "ping":
                 await websocket.send_json({"type": "pong"})
