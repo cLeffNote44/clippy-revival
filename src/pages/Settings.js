@@ -33,6 +33,7 @@ function Settings() {
   useEffect(() => {
     loadModels();
     loadSettings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadModels = async () => {
@@ -43,6 +44,7 @@ function Settings() {
       setActiveModel(data.active_model || '');
       setLoading(false);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Failed to load models:', error);
       setLoading(false);
     }
@@ -73,6 +75,7 @@ function Settings() {
         setActiveModel(newModel);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Failed to change model:', error);
     }
   };
@@ -194,7 +197,7 @@ function Settings() {
           Character
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Customize Clippy's appearance and behavior
+          Customize Clippy&apos;s appearance and behavior
         </Typography>
         
         <Button

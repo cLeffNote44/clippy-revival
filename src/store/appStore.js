@@ -35,6 +35,7 @@ export const useAppStore = create((set, get) => ({
         
         ws.onopen = () => {
           set({ isConnected: true, websocket: ws });
+          // eslint-disable-next-line no-console
           console.log('Connected to backend WebSocket');
           
           // Subscribe to system metrics
@@ -100,16 +101,19 @@ export const useAppStore = create((set, get) => ({
             break;
               
           default:
+            // eslint-disable-next-line no-console
             console.log('Received WebSocket message:', data);
           }
         };
         
         ws.onerror = (error) => {
+          // eslint-disable-next-line no-console
           console.error('WebSocket error:', error);
           set({ isConnected: false });
         };
         
         ws.onclose = () => {
+          // eslint-disable-next-line no-console
           console.log('WebSocket connection closed');
           set({ isConnected: false, websocket: null });
           
@@ -120,6 +124,7 @@ export const useAppStore = create((set, get) => ({
         };
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Failed to initialize backend:', error);
       set({ isConnected: false });
     }
@@ -147,6 +152,7 @@ export const useAppStore = create((set, get) => ({
         throw new Error('Failed to send message');
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error sending message:', error);
       set({ isTyping: false, characterState: 'idle' });
     }

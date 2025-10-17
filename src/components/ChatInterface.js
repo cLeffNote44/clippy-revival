@@ -80,27 +80,27 @@ function ChatInterface() {
       });
       
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Tool execution error:', error);
     }
 
     setPendingConfirmation(null);
   };
 
-  // Check if message contains tool confirmation request
-  const checkForConfirmation = (message) => {
-    if (message.tool_call?.requires_confirmation) {
-      setPendingConfirmation({
-        tool: message.tool_call.tool,
-        arguments: message.tool_call.arguments,
-        message: message.tool_call.message
-      });
-    }
-  };
-
   useEffect(() => {
+    // Check if last message contains tool confirmation request
     const lastMessage = chatHistory[chatHistory.length - 1];
     if (lastMessage && lastMessage.role === 'assistant') {
-      checkForConfirmation(lastMessage);
+      if (lastMessage.tool_call?.requires_confirmation) {
+        // Use microtask to avoid cascading render
+        queueMicrotask(() => {
+          setPendingConfirmation({
+            tool: lastMessage.tool_call.tool,
+            arguments: lastMessage.tool_call.arguments,
+            message: lastMessage.tool_call.message
+          });
+        });
+      }
     }
   }, [chatHistory]);
 
@@ -124,7 +124,7 @@ function ChatInterface() {
           }}>
             <BotIcon sx={{ fontSize: 64, color: 'primary.main', opacity: 0.3 }} />
             <Typography variant="h6" color="text.secondary">
-              Hi! I'm Clippy. How can I help you today?
+              Hi! I&apos;m Clippy. How can I help you today?
             </Typography>
             <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
               <Chip label="Check system metrics" onClick={() => setInput('Show me system metrics')} />

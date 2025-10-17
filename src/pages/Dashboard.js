@@ -7,8 +7,6 @@ import {
   Card, 
   CardContent, 
   Chip,
-  Tabs,
-  Tab,
   Drawer,
   Fab
 } from '@mui/material';
@@ -22,7 +20,7 @@ import {
 } from '@mui/icons-material';
 import ChatInterface from '../components/ChatInterface';
 
-function Dashboard({ activeTab = 'dashboard' }) {
+function Dashboard() {
   const { systemMetrics, isConnected, assistantPaused } = useAppStore();
   const [chatOpen, setChatOpen] = useState(false);
 

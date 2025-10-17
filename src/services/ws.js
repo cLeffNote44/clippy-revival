@@ -18,16 +18,19 @@ class WebSocketService {
   // Connect to WebSocket server
   connect() {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      // eslint-disable-next-line no-console
       console.log('[WS] Already connected');
       return Promise.resolve();
     }
 
     return new Promise((resolve, reject) => {
       try {
+        // eslint-disable-next-line no-console
         console.log('[WS] Connecting to', this.url);
         this.ws = new WebSocket(this.url);
 
         this.ws.onopen = () => {
+          // eslint-disable-next-line no-console
           console.log('[WS] Connected');
           this.isConnected = true;
           this.reconnectAttempts = 0;
@@ -42,16 +45,19 @@ class WebSocketService {
             const data = JSON.parse(event.data);
             this.handleMessage(data);
           } catch (error) {
+            // eslint-disable-next-line no-console
             console.error('[WS] Failed to parse message:', error);
           }
         };
 
         this.ws.onerror = (error) => {
+          // eslint-disable-next-line no-console
           console.error('[WS] Error:', error);
           this.emit('error', error);
         };
 
         this.ws.onclose = (event) => {
+          // eslint-disable-next-line no-console
           console.log('[WS] Disconnected:', event.code, event.reason);
           this.isConnected = false;
           this.stopHeartbeat();
@@ -60,6 +66,7 @@ class WebSocketService {
         };
 
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('[WS] Failed to create WebSocket:', error);
         reject(error);
       }
@@ -95,13 +102,16 @@ class WebSocketService {
       try {
         this.ws.send(JSON.stringify(message));
         if (config.app.isDev) {
+          // eslint-disable-next-line no-console
           console.log('[WS] Sent:', type, payload);
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('[WS] Failed to send message:', error);
         this.messageQueue.push(message);
       }
     } else {
+      // eslint-disable-next-line no-console
       console.log('[WS] Queueing message (not connected):', type);
       this.messageQueue.push(message);
     }
@@ -117,6 +127,7 @@ class WebSocketService {
   // Handle incoming messages
   handleMessage(data) {
     if (config.app.isDev) {
+      // eslint-disable-next-line no-console
       console.log('[WS] Received:', data);
     }
 
@@ -159,6 +170,7 @@ class WebSocketService {
       try {
         callback(data);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error(`[WS] Error in listener for ${event}:`, error);
       }
     });
@@ -185,6 +197,7 @@ class WebSocketService {
   // Attempt to reconnect
   attemptReconnect() {
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      // eslint-disable-next-line no-console
       console.error('[WS] Max reconnection attempts reached');
       this.emit('reconnect-failed');
       return;
@@ -197,11 +210,13 @@ class WebSocketService {
     this.reconnectAttempts++;
     const delay = Math.min(this.reconnectInterval * this.reconnectAttempts, 30000);
     
+    // eslint-disable-next-line no-console
     console.log(`[WS] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
     
     this.reconnectTimer = setTimeout(() => {
       this.reconnectTimer = null;
       this.connect().catch(error => {
+        // eslint-disable-next-line no-console
         console.error('[WS] Reconnection failed:', error);
       });
     }, delay);
@@ -213,8 +228,10 @@ class WebSocketService {
       const message = this.messageQueue.shift();
       try {
         this.ws.send(JSON.stringify(message));
+        // eslint-disable-next-line no-console
         console.log('[WS] Sent queued message:', message.type);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('[WS] Failed to send queued message:', error);
         this.messageQueue.unshift(message); // Put it back
         break;

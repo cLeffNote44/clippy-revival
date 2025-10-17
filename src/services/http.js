@@ -21,12 +21,14 @@ http.interceptors.request.use(
     
     // Log requests in development
     if (config.app.isDev) {
+      // eslint-disable-next-line no-console
       console.log(`[HTTP] ${requestConfig.method?.toUpperCase()} ${requestConfig.url}`, requestConfig.data);
     }
     
     return requestConfig;
   },
   (error) => {
+    // eslint-disable-next-line no-console
     console.error('[HTTP] Request error:', error);
     return Promise.reject(error);
   }
@@ -37,6 +39,7 @@ http.interceptors.response.use(
   (response) => {
     // Log responses in development
     if (config.app.isDev) {
+      // eslint-disable-next-line no-console
       console.log(`[HTTP] Response ${response.status}:`, response.data);
     }
     return response;
@@ -45,6 +48,7 @@ http.interceptors.response.use(
     const originalRequest = error.config;
     
     // Log errors
+    // eslint-disable-next-line no-console
     console.error('[HTTP] Response error:', error.response?.status, error.response?.data || error.message);
     
     // Retry logic for network errors
@@ -55,6 +59,7 @@ http.interceptors.response.use(
       // Wait before retrying
       await new Promise(resolve => setTimeout(resolve, config.api.retryDelay));
       
+      // eslint-disable-next-line no-console
       console.log(`[HTTP] Retrying request (attempt ${originalRequest._retryCount}/${config.api.retryAttempts})`);
       return http(originalRequest);
     }

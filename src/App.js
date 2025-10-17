@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 
@@ -30,6 +30,7 @@ function App() {
         useAppStore.setState({ assistantPaused: isPaused });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Check if we're in buddy window mode

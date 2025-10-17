@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import wsService from '../services/ws';
-import { aiService } from '../services/api';
 import { useAppStore } from '../store/appStore';
 import CharacterAvatar from '../components/CharacterAvatar';
 import axios from 'axios';
@@ -99,6 +97,7 @@ function BuddyWindow() {
         const response = await axios.get(`${API_BASE}/characters/${activeId}`);
         setCharacterPack(response.data);
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error('Failed to load character:', err);
         // Fall back to placeholder on error
       } finally {
@@ -109,7 +108,7 @@ function BuddyWindow() {
     loadCharacter();
 
     // Listen for character changes
-    const handleCharacterChange = (event) => {
+    const handleCharacterChange = () => {
       loadCharacter();
     };
     window.addEventListener('characterChanged', handleCharacterChange);
@@ -120,18 +119,14 @@ function BuddyWindow() {
   }, []);
 
   useEffect(() => {
-    // Make window draggable
-    let mouseDown = false;
-    
+    // Make window draggable    
     const handleMouseDown = (e) => {
       if (e.target.closest('.character-container')) {
-        mouseDown = true;
         setIsDragging(true);
       }
     };
 
     const handleMouseUp = () => {
-      mouseDown = false;
       setIsDragging(false);
     };
 

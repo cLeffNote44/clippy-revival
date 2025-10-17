@@ -17,8 +17,16 @@ const CharacterAvatar = ({
   useEffect(() => {
     if (!animation) return;
 
-    setIsLoaded(false);
-    setCurrentFrame(0);
+    // Reset state when animation changes
+    let mounted = true;
+    
+    // Use microtask to avoid cascading render within effect
+    queueMicrotask(() => {
+      if (mounted) {
+        setIsLoaded(false);
+        setCurrentFrame(0);
+      }
+    });
 
     // Handle sprite sheet animation
     if (animation.type === 'spriteSheet') {
@@ -27,7 +35,9 @@ const CharacterAvatar = ({
 
       // Preload sprite sheet
       const img = new Image();
-      img.onload = () => setIsLoaded(true);
+      img.onload = () => {
+        if (mounted) setIsLoaded(true);
+      };
       img.src = `character-packs/${pack.id}/${animation.spriteSheet}`;
 
       const animate = () => {
@@ -44,6 +54,7 @@ const CharacterAvatar = ({
       animationRef.current = setTimeout(animate, frameDuration);
 
       return () => {
+        mounted = false;
         if (animationRef.current) {
           clearTimeout(animationRef.current);
         }
@@ -64,7 +75,9 @@ const CharacterAvatar = ({
             img.src = `character-packs/${pack.id}/${frame.image}`;
           });
         })
-      ).then(() => setIsLoaded(true));
+      ).then(() => {
+        if (mounted) setIsLoaded(true);
+      });
 
       const animate = () => {
         const currentFrameData = animation.frames[frameIndex];
@@ -82,12 +95,13 @@ const CharacterAvatar = ({
       animationRef.current = setTimeout(animate, animation.frames[0].duration);
 
       return () => {
+        mounted = false;
         if (animationRef.current) {
           clearTimeout(animationRef.current);
         }
       };
     }
-  }, [animation, pack, onAnimationComplete]);
+  }, [animation, pack, onAnimationComplete, state]);
 
   if (!pack || !animation) {
     return (
