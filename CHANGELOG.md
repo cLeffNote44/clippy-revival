@@ -18,8 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ESLint and Prettier configurations
 - Python tooling configuration (pyproject.toml)
 - GitHub Actions CI/CD workflows
+- Automated dependency updates via Dependabot
 - Linting and formatting npm scripts
 - Python 3.12 version check at startup
+- Comprehensive test infrastructure (Jest, pytest, Playwright)
+- Test coverage requirements (60% threshold)
+- Development roadmap (ROADMAP.md)
+- IPC channel whitelist validation
+- Content Security Policy headers
 
 ### Fixed
 - Critical security vulnerability: replaced eval() with json.loads in WebSocket handler
@@ -33,11 +39,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Standardized Node.js version to 20 LTS
 - Updated documentation with consistent version requirements
 - Improved security defaults in backend CORS middleware
+- Hardened Electron BrowserWindow security settings
+- Enhanced preload script with input validation
 
 ### Security
 - Eliminated dangerous eval() usage in backend
 - Removed file:// protocol from CORS allowed origins
 - Added structured input validation approach
+- Enabled sandbox mode for all Electron windows
+- Disabled Node.js integration in renderer processes
+- Implemented Content Security Policy
+- Added IPC channel whitelist and validation
 
 ## [1.0.0] - 2024-01-01
 
