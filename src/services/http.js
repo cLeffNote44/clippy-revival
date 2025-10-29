@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../config';
+import { handleApiError } from './errorHandler';
 
 // Create axios instance with defaults
 const http = axios.create({
@@ -46,24 +47,24 @@ http.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    
+
     // Log errors
     // eslint-disable-next-line no-console
     console.error('[HTTP] Response error:', error.response?.status, error.response?.data || error.message);
-    
-    // Retry logic for network errors
+
+    // Retry logic for network errors (only for non-user-initiated requests)
     if (!error.response && !originalRequest._retry && originalRequest._retryCount < config.api.retryAttempts) {
       originalRequest._retry = true;
       originalRequest._retryCount = (originalRequest._retryCount || 0) + 1;
-      
+
       // Wait before retrying
       await new Promise(resolve => setTimeout(resolve, config.api.retryDelay));
-      
+
       // eslint-disable-next-line no-console
       console.log(`[HTTP] Retrying request (attempt ${originalRequest._retryCount}/${config.api.retryAttempts})`);
       return http(originalRequest);
     }
-    
+
     // Handle specific error codes
     if (error.response) {
       switch (error.response.status) {
@@ -84,7 +85,10 @@ http.interceptors.response.use(
         break;
       }
     }
-    
+
+    // Use centralized error handler (but don't show toast for every error - let calling code decide)
+    handleApiError(error, { showToast: false });
+
     return Promise.reject(error);
   }
 );

@@ -1,7 +1,8 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, shell, nativeImage } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, shell, nativeImage, dialog } = require('electron');
 const path = require('path');
 const { spawn } = require('child_process');
 const axios = require('axios');
+const logger = require('./logger');
 
 // Environment configuration
 const isDev = process.env.NODE_ENV === 'development';
@@ -34,10 +35,10 @@ async function startBackend() {
   // Check if backend is already running
   try {
     await axios.get(`${BACKEND_URL}/health`, { timeout: 1000 });
-    console.log('Backend already running');
+    logger.info('Backend already running');
     return true;
   } catch (error) {
-    console.log('Starting backend...');
+    logger.info('Starting backend...');
   }
 
   return new Promise((resolve, reject) => {
@@ -68,18 +69,18 @@ async function startBackend() {
     }
 
     backendProcess.stdout.on('data', (data) => {
-      console.log(`Backend: ${data}`);
+      logger.debug(`Backend: ${data}`);
       if (data.toString().includes('Uvicorn running on') || data.toString().includes('Application startup complete')) {
         resolve(true);
       }
     });
 
     backendProcess.stderr.on('data', (data) => {
-      console.error(`Backend Error: ${data}`);
+      logger.error(`Backend Error: ${data}`);
     });
 
     backendProcess.on('error', (error) => {
-      console.error('Failed to start backend:', error);
+      logger.error('Failed to start backend', error);
       reject(error);
     });
 
@@ -92,11 +93,12 @@ async function startBackend() {
       try {
         await axios.get(`${BACKEND_URL}/health`, { timeout: 1000 });
         clearInterval(checkHealth);
-        console.log('Backend is ready');
+        logger.info('Backend is ready');
         resolve(true);
       } catch (error) {
         if (attempts >= maxAttempts) {
           clearInterval(checkHealth);
+          logger.error('Backend failed to start after 30 seconds');
           reject(new Error('Backend failed to start after 30 seconds'));
         }
       }
@@ -370,24 +372,37 @@ ipcMain.handle('set-buddy-click-through', (event, clickThrough) => {
   }
 });
 
+// Error logging handler
+ipcMain.handle('log-error', (event, errorData) => {
+  logger.error('Renderer error', null, errorData);
+  return true;
+});
+
 // App event handlers
 app.whenReady().then(async () => {
+  logger.info('Application starting', { isDev, version: app.getVersion() });
   try {
     // Start backend first
     await startBackend();
-    
+
     // Create tray icon
     createTray();
-    
+
     // Create buddy window by default
     createBuddyWindow();
-    
+
     // Show dashboard on first run or in dev mode
     if (isDev) {
       createDashboardWindow();
     }
+
+    logger.info('Application started successfully');
   } catch (error) {
-    console.error('Failed to start application:', error);
+    logger.crash(error, { context: 'app.whenReady' });
+    dialog.showErrorBox(
+      'Startup Error',
+      'Failed to start the application. Please check the logs for more details.'
+    );
     app.quit();
   }
 });

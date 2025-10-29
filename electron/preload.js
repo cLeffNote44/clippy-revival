@@ -9,7 +9,8 @@ const ALLOWED_CHANNELS = {
     'hide-buddy',
     'set-buddy-click-through',
     'select-file',
-    'select-directory'
+    'select-directory',
+    'log-error'
   ],
   on: [
     'assistant-paused',
@@ -129,4 +130,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // System info
   getPlatform: () => process.platform,
   getVersion: () => process.versions.electron,
+
+  // Error logging
+  logError: (errorData) => {
+    // Send error to main process for logging
+    return ipcRenderer.invoke('log-error', errorData);
+  }
 });
