@@ -31,7 +31,9 @@
     "format:python": "cd backend && black . && ruff check . --fix",
     "security:check": "bash scripts/security-check.sh",
     "security:audit": "npm audit",
-    "security:audit:fix": "npm audit fix"
+    "security:audit:fix": "npm audit fix",
+    "perf:analyze": "node scripts/analyze-bundle.js",
+    "perf:build": "npm run build:renderer && npm run perf:analyze"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
