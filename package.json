@@ -28,7 +28,10 @@
     "lint:python": "cd backend && ruff check . && black --check .",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,json,css}\"",
-    "format:python": "cd backend && black . && ruff check . --fix"
+    "format:python": "cd backend && black . && ruff check . --fix",
+    "security:check": "bash scripts/security-check.sh",
+    "security:audit": "npm audit",
+    "security:audit:fix": "npm audit fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

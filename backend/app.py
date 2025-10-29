@@ -23,6 +23,13 @@ from services.system_service import SystemService
 from services.websocket_manager import WebSocketManager
 from services.scheduler_service import get_scheduler_service
 
+# Import security middleware
+from middleware.security import (
+    SecurityHeadersMiddleware,
+    RateLimitMiddleware,
+    InputValidationMiddleware
+)
+
 # Global instances
 system_service = SystemService()
 ws_manager = WebSocketManager()
@@ -71,6 +78,15 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
     max_age=3600,
+)
+
+# Add security middleware
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(InputValidationMiddleware)
+app.add_middleware(
+    RateLimitMiddleware,
+    requests_per_minute=60,  # 60 requests per minute
+    burst_size=10  # Max 10 requests per second
 )
 
 # Include routers
