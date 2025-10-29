@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, CircularProgress, Typography } from '@mui/material';
 
 /**
  * Loading spinner component with optional message
  */
-const LoadingSpinner = ({ message, size = 40, fullScreen = false }) => {
+const LoadingSpinner = ({ message, size, fullScreen }) => {
   const content = (
     <Box
       sx={{
@@ -29,6 +30,18 @@ const LoadingSpinner = ({ message, size = 40, fullScreen = false }) => {
   );
 
   return content;
+};
+
+LoadingSpinner.propTypes = {
+  message: PropTypes.string,
+  size: PropTypes.number,
+  fullScreen: PropTypes.bool
+};
+
+LoadingSpinner.defaultProps = {
+  message: null,
+  size: 40,
+  fullScreen: false
 };
 
 export default LoadingSpinner;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Dialog,
   DialogTitle,
@@ -16,7 +17,7 @@ import { SHORTCUTS, formatShortcut } from '../utils/keyboardShortcuts';
 /**
  * Dialog showing all available keyboard shortcuts
  */
-const KeyboardShortcutsDialog = ({ open, onClose }) => {
+const KeyboardShortcutsDialog = React.memo(({ open, onClose }) => {
   const shortcutGroups = {
     Navigation: ['SHOW_DASHBOARD', 'SHOW_BUDDY', 'SHOW_SETTINGS'],
     Actions: ['SEND_MESSAGE', 'CLOSE_WINDOW', 'REFRESH'],
@@ -114,6 +115,11 @@ const KeyboardShortcutsDialog = ({ open, onClose }) => {
       </DialogActions>
     </Dialog>
   );
+});
+
+KeyboardShortcutsDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default KeyboardShortcutsDialog;

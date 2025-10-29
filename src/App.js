@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 
-// Import pages
-import Dashboard from './pages/Dashboard';
-import BuddyWindow from './pages/BuddyWindow';
-import Settings from './pages/Settings';
-import Characters from './pages/Characters';
-import Onboarding from './pages/Onboarding';
-
-// Import components
+// Import components (not lazy - needed immediately)
 import ErrorBoundary from './components/ErrorBoundary';
 import Toast from './components/Toast';
+import LoadingSpinner from './components/LoadingSpinner';
 
 // Import store
 import { useAppStore } from './store/appStore';
@@ -22,6 +16,13 @@ import {
   cleanupKeyboardShortcuts,
   registerShortcut
 } from './utils/keyboardShortcuts';
+
+// Lazy load pages for code splitting
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const BuddyWindow = lazy(() => import('./pages/BuddyWindow'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Characters = lazy(() => import('./pages/Characters'));
+const Onboarding = lazy(() => import('./pages/Onboarding'));
 
 function App() {
   const location = useLocation();
@@ -92,9 +93,11 @@ function App() {
         errorMessage="The buddy window encountered an error. Please restart the application."
         showReload={true}
       >
-        <Box sx={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-          <BuddyWindow />
-        </Box>
+        <Suspense fallback={<LoadingSpinner fullScreen message="Loading buddy..." />}>
+          <Box sx={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+            <BuddyWindow />
+          </Box>
+        </Suspense>
         <Toast />
       </ErrorBoundary>
     );
@@ -107,7 +110,9 @@ function App() {
         errorMessage="The onboarding process encountered an error. You can skip it and continue."
         showReload={false}
       >
-        <Onboarding onComplete={handleOnboardingComplete} />
+        <Suspense fallback={<LoadingSpinner fullScreen message="Loading setup..." />}>
+          <Onboarding onComplete={handleOnboardingComplete} />
+        </Suspense>
         <Toast />
       </ErrorBoundary>
     );
@@ -118,14 +123,16 @@ function App() {
       errorMessage="The dashboard encountered an error. Please try again or restart the application."
       showReload={true}
     >
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/characters" element={<Characters />} />
-        <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
-        <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      <Suspense fallback={<LoadingSpinner fullScreen message="Loading..." />}>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/characters" element={<Characters />} />
+          <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
+          <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </Suspense>
       <Toast />
     </ErrorBoundary>
   );

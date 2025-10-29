@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Typography, Button, Paper } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
@@ -140,5 +141,20 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
+  fallback: PropTypes.func,
+  errorMessage: PropTypes.string,
+  resetOnError: PropTypes.bool,
+  showReload: PropTypes.bool
+};
+
+ErrorBoundary.defaultProps = {
+  fallback: null,
+  errorMessage: null,
+  resetOnError: false,
+  showReload: true
+};
 
 export default ErrorBoundary;

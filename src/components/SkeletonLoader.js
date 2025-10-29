@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Skeleton, Card, CardContent } from '@mui/material';
 
 /**
@@ -6,7 +7,7 @@ import { Box, Skeleton, Card, CardContent } from '@mui/material';
  */
 
 // Dashboard metric card skeleton
-export const MetricCardSkeleton = () => (
+export const MetricCardSkeleton = React.memo(() => (
   <Card>
     <CardContent>
       <Skeleton variant="text" width="60%" height={24} />
@@ -14,10 +15,10 @@ export const MetricCardSkeleton = () => (
       <Skeleton variant="text" width="80%" height={20} sx={{ mt: 1 }} />
     </CardContent>
   </Card>
-);
+));
 
 // List item skeleton (for character packs, files, etc.)
-export const ListItemSkeleton = ({ count = 3 }) => (
+export const ListItemSkeleton = React.memo(({ count }) => (
   <Box>
     {Array.from({ length: count }).map((_, index) => (
       <Box
@@ -40,18 +41,26 @@ export const ListItemSkeleton = ({ count = 3 }) => (
       </Box>
     ))}
   </Box>
-);
+));
+
+ListItemSkeleton.propTypes = {
+  count: PropTypes.number
+};
+
+ListItemSkeleton.defaultProps = {
+  count: 3
+};
 
 // Chart skeleton
-export const ChartSkeleton = () => (
+export const ChartSkeleton = React.memo(() => (
   <Box sx={{ p: 2 }}>
     <Skeleton variant="text" width="40%" height={32} sx={{ mb: 2 }} />
     <Skeleton variant="rectangular" width="100%" height={300} />
   </Box>
-);
+));
 
 // Settings form skeleton
-export const SettingsFormSkeleton = () => (
+export const SettingsFormSkeleton = React.memo(() => (
   <Box sx={{ p: 2 }}>
     <Skeleton variant="text" width="30%" height={32} sx={{ mb: 3 }} />
     {Array.from({ length: 4 }).map((_, index) => (
@@ -62,10 +71,10 @@ export const SettingsFormSkeleton = () => (
     ))}
     <Skeleton variant="rectangular" width={120} height={40} sx={{ mt: 2 }} />
   </Box>
-);
+));
 
 // Character pack card skeleton
-export const CharacterCardSkeleton = ({ count = 3 }) => (
+export const CharacterCardSkeleton = React.memo(({ count }) => (
   <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 2 }}>
     {Array.from({ length: count }).map((_, index) => (
       <Card key={index}>
@@ -81,7 +90,15 @@ export const CharacterCardSkeleton = ({ count = 3 }) => (
       </Card>
     ))}
   </Box>
-);
+));
+
+CharacterCardSkeleton.propTypes = {
+  count: PropTypes.number
+};
+
+CharacterCardSkeleton.defaultProps = {
+  count: 3
+};
 
 export default {
   MetricCardSkeleton,

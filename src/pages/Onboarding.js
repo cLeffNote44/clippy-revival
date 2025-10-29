@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   Button,
@@ -31,7 +32,7 @@ const steps = [
   'Complete'
 ];
 
-const Onboarding = ({ onComplete }) => {
+const Onboarding = React.memo(({ onComplete }) => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [systemChecks, setSystemChecks] = useState({
@@ -400,6 +401,14 @@ const Onboarding = ({ onComplete }) => {
       </Paper>
     </Box>
   );
+});
+
+Onboarding.propTypes = {
+  onComplete: PropTypes.func
+};
+
+Onboarding.defaultProps = {
+  onComplete: null
 };
 
 export default Onboarding;
