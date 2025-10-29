@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, shell, nativeImage, dialog } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, shell, nativeImage, dialog, globalShortcut } = require('electron');
 const path = require('path');
 const { spawn } = require('child_process');
 const axios = require('axios');
@@ -339,6 +339,44 @@ function createTray() {
   });
 }
 
+// Register global keyboard shortcuts
+function registerGlobalShortcuts() {
+  try {
+    // Ctrl+Shift+D - Show Dashboard
+    globalShortcut.register('CommandOrControl+Shift+D', () => {
+      if (!dashboardWindow) {
+        createDashboardWindow();
+      } else {
+        dashboardWindow.show();
+        dashboardWindow.focus();
+      }
+      logger.info('Global shortcut triggered: Show Dashboard');
+    });
+
+    // Ctrl+Shift+B - Toggle Buddy Window
+    globalShortcut.register('CommandOrControl+Shift+B', () => {
+      if (!buddyWindow) {
+        createBuddyWindow();
+      } else if (buddyWindow.isVisible()) {
+        buddyWindow.hide();
+      } else {
+        buddyWindow.show();
+      }
+      logger.info('Global shortcut triggered: Toggle Buddy');
+    });
+
+    logger.info('Global shortcuts registered successfully');
+  } catch (error) {
+    logger.error('Failed to register global shortcuts', error);
+  }
+}
+
+// Unregister all shortcuts when app quits
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+  logger.info('Global shortcuts unregistered');
+});
+
 // IPC handlers
 ipcMain.handle('get-backend-url', () => BACKEND_URL);
 
@@ -397,6 +435,9 @@ app.whenReady().then(async () => {
     }
 
     logger.info('Application started successfully');
+
+    // Register global keyboard shortcuts
+    registerGlobalShortcuts();
   } catch (error) {
     logger.crash(error, { context: 'app.whenReady' });
     dialog.showErrorBox(

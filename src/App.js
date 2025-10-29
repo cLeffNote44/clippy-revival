@@ -16,6 +16,13 @@ import Toast from './components/Toast';
 // Import store
 import { useAppStore } from './store/appStore';
 
+// Import keyboard shortcuts
+import {
+  initKeyboardShortcuts,
+  cleanupKeyboardShortcuts,
+  registerShortcut
+} from './utils/keyboardShortcuts';
+
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,6 +39,27 @@ function App() {
     // Initialize connection to backend
     initializeBackend();
 
+    // Initialize keyboard shortcuts
+    initKeyboardShortcuts();
+
+    // Register application shortcuts
+    registerShortcut('SHOW_DASHBOARD', () => {
+      if (window.electronAPI) {
+        window.electronAPI.showDashboard();
+      }
+    });
+
+    registerShortcut('SHOW_SETTINGS', () => {
+      navigate('/settings');
+    });
+
+    registerShortcut('CLOSE_WINDOW', () => {
+      // Close dialogs or navigate back
+      if (location.pathname !== '/dashboard' && location.pathname !== '/') {
+        navigate('/dashboard');
+      }
+    });
+
     // Listen for navigation from Electron
     if (window.electronAPI) {
       window.electronAPI.onNavigate((path) => {
@@ -42,6 +70,11 @@ function App() {
         useAppStore.setState({ assistantPaused: isPaused });
       });
     }
+
+    // Cleanup on unmount
+    return () => {
+      cleanupKeyboardShortcuts();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
