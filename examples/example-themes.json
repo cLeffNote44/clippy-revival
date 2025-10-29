@@ -1,0 +1,318 @@
+{
+  "themes": [
+    {
+      "id": "sunset",
+      "name": "Sunset",
+      "description": "Warm sunset colors with orange and purple hues",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "dark",
+      "palette": {
+        "primary": {
+          "main": "#FF6B6B",
+          "light": "#FF8E8E",
+          "dark": "#E85555",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#FFA07A",
+          "light": "#FFBE9F",
+          "dark": "#FF8A5B",
+          "contrastText": "#000000"
+        },
+        "background": {
+          "default": "#2D1B3D",
+          "paper": "#3E2655",
+          "elevated": "#4F336D"
+        },
+        "text": {
+          "primary": "rgba(255, 255, 255, 0.95)",
+          "secondary": "rgba(255, 255, 255, 0.7)",
+          "disabled": "rgba(255, 255, 255, 0.4)",
+          "hint": "rgba(255, 255, 255, 0.4)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Inter', 'Roboto', sans-serif"
+      },
+      "shape": {
+        "borderRadius": 12
+      }
+    },
+    {
+      "id": "forest",
+      "name": "Forest",
+      "description": "Natural green tones inspired by the forest",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "light",
+      "palette": {
+        "primary": {
+          "main": "#2E7D32",
+          "light": "#4CAF50",
+          "dark": "#1B5E20",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#558B2F",
+          "light": "#8BC34A",
+          "dark": "#33691E",
+          "contrastText": "#FFFFFF"
+        },
+        "background": {
+          "default": "#F1F8E9",
+          "paper": "#FFFFFF",
+          "elevated": "#E8F5E9"
+        },
+        "text": {
+          "primary": "rgba(0, 0, 0, 0.87)",
+          "secondary": "rgba(0, 0, 0, 0.6)",
+          "disabled": "rgba(0, 0, 0, 0.38)",
+          "hint": "rgba(0, 0, 0, 0.38)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Lora', 'Georgia', serif"
+      },
+      "shape": {
+        "borderRadius": 8
+      }
+    },
+    {
+      "id": "cyberpunk",
+      "name": "Cyberpunk",
+      "description": "Futuristic neon colors with high contrast",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "dark",
+      "palette": {
+        "primary": {
+          "main": "#00F0FF",
+          "light": "#5FFBFF",
+          "dark": "#00B8CC",
+          "contrastText": "#000000"
+        },
+        "secondary": {
+          "main": "#FF00FF",
+          "light": "#FF5AFF",
+          "dark": "#CC00CC",
+          "contrastText": "#FFFFFF"
+        },
+        "background": {
+          "default": "#0A0E27",
+          "paper": "#141935",
+          "elevated": "#1E2749"
+        },
+        "text": {
+          "primary": "#00F0FF",
+          "secondary": "rgba(0, 240, 255, 0.7)",
+          "disabled": "rgba(0, 240, 255, 0.3)",
+          "hint": "rgba(0, 240, 255, 0.5)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Share Tech Mono', 'Courier New', monospace"
+      },
+      "shape": {
+        "borderRadius": 2
+      }
+    },
+    {
+      "id": "ocean",
+      "name": "Ocean",
+      "description": "Cool ocean blues and aqua tones",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "light",
+      "palette": {
+        "primary": {
+          "main": "#006064",
+          "light": "#428E92",
+          "dark": "#00363A",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#0097A7",
+          "light": "#4FC3F7",
+          "dark": "#006978",
+          "contrastText": "#FFFFFF"
+        },
+        "background": {
+          "default": "#E0F7FA",
+          "paper": "#FFFFFF",
+          "elevated": "#B2EBF2"
+        },
+        "text": {
+          "primary": "rgba(0, 0, 0, 0.87)",
+          "secondary": "rgba(0, 0, 0, 0.6)",
+          "disabled": "rgba(0, 0, 0, 0.38)",
+          "hint": "rgba(0, 0, 0, 0.38)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Nunito', 'Helvetica', sans-serif"
+      },
+      "shape": {
+        "borderRadius": 16
+      }
+    },
+    {
+      "id": "midnight",
+      "name": "Midnight",
+      "description": "Deep blue midnight theme with subtle accents",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "dark",
+      "palette": {
+        "primary": {
+          "main": "#5C6BC0",
+          "light": "#8E99F3",
+          "dark": "#26418F",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#7E57C2",
+          "light": "#B085F5",
+          "dark": "#4527A0",
+          "contrastText": "#FFFFFF"
+        },
+        "background": {
+          "default": "#0F1419",
+          "paper": "#1A202C",
+          "elevated": "#2D3748"
+        },
+        "text": {
+          "primary": "rgba(255, 255, 255, 0.92)",
+          "secondary": "rgba(255, 255, 255, 0.65)",
+          "disabled": "rgba(255, 255, 255, 0.38)",
+          "hint": "rgba(255, 255, 255, 0.45)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Poppins', 'Arial', sans-serif"
+      },
+      "shape": {
+        "borderRadius": 6
+      }
+    },
+    {
+      "id": "high-contrast",
+      "name": "High Contrast",
+      "description": "Maximum contrast for accessibility",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "dark",
+      "palette": {
+        "primary": {
+          "main": "#FFFF00",
+          "light": "#FFFF5A",
+          "dark": "#C7CC00",
+          "contrastText": "#000000"
+        },
+        "secondary": {
+          "main": "#00FFFF",
+          "light": "#6AFFFF",
+          "dark": "#00CCCC",
+          "contrastText": "#000000"
+        },
+        "background": {
+          "default": "#000000",
+          "paper": "#1A1A1A",
+          "elevated": "#2D2D2D"
+        },
+        "text": {
+          "primary": "#FFFFFF",
+          "secondary": "#FFFFFF",
+          "disabled": "#808080",
+          "hint": "#CCCCCC"
+        },
+        "divider": "#FFFFFF"
+      },
+      "typography": {
+        "fontFamily": "'Arial', sans-serif",
+        "fontWeightRegular": 600
+      },
+      "shape": {
+        "borderRadius": 0
+      }
+    },
+    {
+      "id": "autumn",
+      "name": "Autumn",
+      "description": "Warm autumn colors with browns and oranges",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "light",
+      "palette": {
+        "primary": {
+          "main": "#D84315",
+          "light": "#FF7043",
+          "dark": "#BF360C",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#F57C00",
+          "light": "#FFB74D",
+          "dark": "#E65100",
+          "contrastText": "#000000"
+        },
+        "background": {
+          "default": "#FFF3E0",
+          "paper": "#FFFFFF",
+          "elevated": "#FFE0B2"
+        },
+        "text": {
+          "primary": "rgba(0, 0, 0, 0.87)",
+          "secondary": "rgba(0, 0, 0, 0.6)",
+          "disabled": "rgba(0, 0, 0, 0.38)",
+          "hint": "rgba(0, 0, 0, 0.38)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Merriweather', 'Georgia', serif"
+      },
+      "shape": {
+        "borderRadius": 10
+      }
+    },
+    {
+      "id": "minimalist",
+      "name": "Minimalist",
+      "description": "Clean and minimal grayscale theme",
+      "author": "Clippy Revival Team",
+      "version": "1.0.0",
+      "mode": "light",
+      "palette": {
+        "primary": {
+          "main": "#424242",
+          "light": "#757575",
+          "dark": "#212121",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#616161",
+          "light": "#9E9E9E",
+          "dark": "#424242",
+          "contrastText": "#FFFFFF"
+        },
+        "background": {
+          "default": "#FAFAFA",
+          "paper": "#FFFFFF",
+          "elevated": "#F5F5F5"
+        },
+        "text": {
+          "primary": "rgba(0, 0, 0, 0.87)",
+          "secondary": "rgba(0, 0, 0, 0.6)",
+          "disabled": "rgba(0, 0, 0, 0.38)",
+          "hint": "rgba(0, 0, 0, 0.38)"
+        }
+      },
+      "typography": {
+        "fontFamily": "'Open Sans', 'Helvetica', sans-serif"
+      },
+      "shape": {
+        "borderRadius": 4
+      }
+    }
+  ]
+}
