@@ -202,6 +202,46 @@ class CharacterService:
         return None
 
 
+    def get_personalities(self) -> Dict:
+        """Get all personality presets"""
+        personalities_file = Path(__file__).parent.parent.parent / "character_personalities.json"
+
+        if personalities_file.exists():
+            try:
+                with open(personalities_file, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"Error loading personalities: {e}")
+
+        # Default personalities
+        return {
+            "helpful": {
+                "name": "Helpful Assistant",
+                "description": "Professional and helpful, focuses on solving problems efficiently",
+                "system_prompt": "You are a helpful and professional AI assistant. Be concise, accurate, and focus on solving the user's problems efficiently.",
+                "traits": ["professional", "efficient", "concise"]
+            },
+            "friendly": {
+                "name": "Friendly Companion",
+                "description": "Warm and conversational, like talking to a friend",
+                "system_prompt": "You are a friendly and warm AI companion. Be conversational, supportive, and engaging.",
+                "traits": ["warm", "conversational", "supportive"]
+            },
+            "expert": {
+                "name": "Technical Expert",
+                "description": "Deep technical knowledge, detailed explanations",
+                "system_prompt": "You are a technical expert. Provide detailed, accurate explanations with technical depth.",
+                "traits": ["technical", "detailed", "precise"]
+            },
+            "creative": {
+                "name": "Creative Thinker",
+                "description": "Imaginative and innovative",
+                "system_prompt": "You are creative and imaginative. Think outside the box and suggest innovative solutions.",
+                "traits": ["imaginative", "innovative", "creative"]
+            }
+        }
+
+
 # Singleton instance
 _character_service = CharacterService()
 
