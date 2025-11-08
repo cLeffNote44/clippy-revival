@@ -273,7 +273,6 @@ By contributing, you agree that your contributions will be licensed under the MI
 ## ❓ Questions?
 
 - Open a [Discussion](https://github.com/clippy-revival/discussions)
-- Join our [Discord](https://discord.gg/clippy-revival)
 - Check existing [Issues](https://github.com/clippy-revival/issues)
 
 Thank you for contributing to Clippy Revival! 🎉
