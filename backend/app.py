@@ -29,6 +29,10 @@ from api.plugin_router import router as plugin_router
 from api.shortcuts_router import router as shortcuts_router
 from api.clipboard_router import router as clipboard_router
 from api.conversations_router import router as conversations_router
+from api.workflow_router import router as workflow_router
+from api.voice_router import router as voice_router
+from api.context_router import router as context_router
+from api.rag_router import router as rag_router
 
 # Import services
 from services.system_service import SystemService
@@ -98,6 +102,10 @@ app.include_router(plugin_router, tags=["Plugins"])
 app.include_router(shortcuts_router, tags=["Shortcuts"])
 app.include_router(clipboard_router, tags=["Clipboard"])
 app.include_router(conversations_router, tags=["Conversations"])
+app.include_router(workflow_router, tags=["Workflows"])
+app.include_router(voice_router, tags=["Voice"])
+app.include_router(context_router, tags=["Context"])
+app.include_router(rag_router, prefix="/rag", tags=["RAG"])
 
 # Mount static files for character assets
 characters_dir = Path(__file__).parent.parent / "characters"

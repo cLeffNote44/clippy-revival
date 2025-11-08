@@ -25,7 +25,10 @@ import {
   History as HistoryIcon,
   PlayArrow as PlayIcon,
   Pause as PauseIcon,
-  Refresh as RefreshIcon
+  Refresh as RefreshIcon,
+  AutoAwesome as WorkflowIcon,
+  Lightbulb as ContextIcon,
+  Keyboard as ShortcutIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -71,6 +74,28 @@ const QuickActions = ({ open, onClose }) => {
         onClose();
       },
       keywords: ['clipboard', 'paste', 'copy', 'history']
+    },
+    {
+      id: 'shortcuts',
+      title: 'Keyboard Shortcuts',
+      description: 'Manage keyboard shortcuts',
+      icon: <ShortcutIcon />,
+      action: () => {
+        navigate('/shortcuts');
+        onClose();
+      },
+      keywords: ['shortcuts', 'keyboard', 'hotkeys', 'keybindings']
+    },
+    {
+      id: 'workflows',
+      title: 'Workflow Builder',
+      description: 'Create and manage automated workflows',
+      icon: <WorkflowIcon />,
+      action: () => {
+        navigate('/workflows');
+        onClose();
+      },
+      keywords: ['workflow', 'automation', 'triggers', 'actions']
     },
     {
       id: 'voice-input',

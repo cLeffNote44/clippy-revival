@@ -122,16 +122,31 @@ async def validate_character_manifest(manifest: dict):
     try:
         service = get_character_service()
         valid, error = service.validate_manifest(manifest)
-        
+
         if not valid:
             return {
                 "valid": False,
                 "error": error
             }
-        
+
         return {
             "valid": True,
             "message": "Manifest is valid"
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Validation failed: {str(e)}")
+
+@router.get("/personalities")
+async def get_personalities():
+    """Get all available personality presets"""
+    try:
+        service = get_character_service()
+        personalities = service.get_personalities()
+
+        return {
+            "success": True,
+            "personalities": personalities,
+            "count": len(personalities)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get personalities: {str(e)}")
