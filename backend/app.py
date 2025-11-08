@@ -24,6 +24,7 @@ from api.software_router import router as software_router
 from api.web_router import router as web_router
 from api.characters import router as characters_router
 from api.scheduler_router import router as scheduler_router
+from api.health_router import router as health_router
 
 # Import services
 from services.system_service import SystemService
@@ -81,6 +82,7 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(health_router)  # No prefix - /health endpoints
 app.include_router(ai_router, prefix="/ai", tags=["AI"])
 app.include_router(system_router, prefix="/system", tags=["System"])
 app.include_router(files_router, prefix="/files", tags=["Files"])
