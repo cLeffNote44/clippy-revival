@@ -1,10 +1,37 @@
 {
   "name": "clippy-revival",
-  "version": "1.0.0",
-  "description": "A modern AI-powered desktop assistant for Windows",
+  "version": "2.0.0",
+  "description": "A modern, privacy-first AI desktop assistant with multi-model support, RAG, voice control, and cross-platform compatibility",
   "main": "electron/main.js",
-  "author": "Your Name",
+  "author": "Clippy Revival Team",
   "license": "MIT",
+  "homepage": "https://github.com/yourusername/clippy-revival",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/clippy-revival.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/clippy-revival/issues"
+  },
+  "keywords": [
+    "ai",
+    "assistant",
+    "clippy",
+    "desktop",
+    "electron",
+    "ollama",
+    "anthropic",
+    "openai",
+    "rag",
+    "voice",
+    "automation",
+    "productivity",
+    "privacy"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:renderer\" \"npm run dev:electron\"",
     "dev:renderer": "webpack serve --config webpack.renderer.config.js --mode development",
