@@ -1,25 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 
-// Import pages
-import Dashboard from './pages/Dashboard';
+// Import critical pages directly (for initial load)
 import BuddyWindow from './pages/BuddyWindow';
-import Settings from './pages/Settings';
-import Characters from './pages/Characters';
-import Scheduler from './pages/Scheduler';
-import PluginManager from './pages/PluginManager';
-import ShortcutsManager from './pages/ShortcutsManager';
-import ClipboardManager from './pages/ClipboardManager';
-import Conversations from './pages/Conversations';
-import WorkflowBuilder from './pages/WorkflowBuilder';
-
-// Import components
 import ErrorBoundary from './components/ErrorBoundary';
-import QuickActions from './components/QuickActions';
+
+// Lazy load pages for code splitting
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Characters = lazy(() => import('./pages/Characters'));
+const Scheduler = lazy(() => import('./pages/Scheduler'));
+const PluginManager = lazy(() => import('./pages/PluginManager'));
+const ShortcutsManager = lazy(() => import('./pages/ShortcutsManager'));
+const ClipboardManager = lazy(() => import('./pages/ClipboardManager'));
+const Conversations = lazy(() => import('./pages/Conversations'));
+const WorkflowBuilder = lazy(() => import('./pages/WorkflowBuilder'));
+const QuickActions = lazy(() => import('./components/QuickActions'));
 
 // Import store
 import { useAppStore } from './store/appStore';
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <Box sx={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    width: '100vw',
+    backgroundColor: '#f5f5f5'
+  }}>
+    <CircularProgress />
+  </Box>
+);
 
 function App() {
   const location = useLocation();
@@ -75,26 +89,28 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/characters" element={<Characters />} />
-        <Route path="/scheduler" element={<Scheduler backendUrl={backendUrl} />} />
-        <Route path="/plugins" element={<PluginManager />} />
-        <Route path="/shortcuts" element={<ShortcutsManager />} />
-        <Route path="/clipboard" element={<ClipboardManager />} />
-        <Route path="/conversations" element={<Conversations />} />
-        <Route path="/workflows" element={<WorkflowBuilder />} />
-        <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
-        <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/characters" element={<Characters />} />
+          <Route path="/scheduler" element={<Scheduler backendUrl={backendUrl} />} />
+          <Route path="/plugins" element={<PluginManager />} />
+          <Route path="/shortcuts" element={<ShortcutsManager />} />
+          <Route path="/clipboard" element={<ClipboardManager />} />
+          <Route path="/conversations" element={<Conversations />} />
+          <Route path="/workflows" element={<WorkflowBuilder />} />
+          <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
+          <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
 
-      {/* Quick Actions Palette */}
-      <QuickActions
-        open={quickActionsOpen}
-        onClose={() => setQuickActionsOpen(false)}
-      />
+        {/* Quick Actions Palette */}
+        <QuickActions
+          open={quickActionsOpen}
+          onClose={() => setQuickActionsOpen(false)}
+        />
+      </Suspense>
     </ErrorBoundary>
   );
 }

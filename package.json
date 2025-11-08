@@ -12,7 +12,13 @@
     "build:renderer": "webpack --config webpack.renderer.config.js --mode production",
     "build:backend": "powershell -ExecutionPolicy Bypass -File scripts/build-backend.ps1",
     "build:win": "npm run build:renderer && electron-builder --win zip",
+    "build:mac": "npm run build:renderer && electron-builder --mac dmg",
+    "build:linux": "npm run build:renderer && electron-builder --linux AppImage",
+    "build:all": "npm run build:renderer && electron-builder --win --mac --linux",
     "pack": "npm run build:renderer && npm run build:backend && electron-builder --win zip",
+    "pack:mac": "npm run build:renderer && electron-builder --mac dmg",
+    "pack:linux": "npm run build:renderer && electron-builder --linux AppImage",
+    "pack:all": "npm run build:renderer && electron-builder -mwl",
     "package": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1",
     "package:quick": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1 -SkipBackend",
     "postinstall": "electron-builder install-app-deps",
@@ -116,6 +122,43 @@
       ],
       "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
       "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+      "icon": "assets/icon.png",
+      "category": "Utility",
+      "synopsis": "AI-powered desktop assistant",
+      "description": "A modern AI-powered desktop assistant with local LLM support"
     },
     "compression": "normal",
     "asar": true,
