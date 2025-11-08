@@ -1,15 +1,17 @@
-# Clippy Revival 🎯
+__Clippy Revival__
 
-A modern revival of Microsoft's Clippy assistant, powered by local AI and built for Windows.
+*"It looks like you're trying to build something awesome. Would you like help with that?"* 📎
+
+Remember that annoying bloat on your childhook PC? Well I recreated him. Only now, a modern Clippy assistant, powered by local AI and built to be customized, and actually helpful. 
 
 ## Features
 
-- **AI-Powered Assistant**: Uses Ollama for local LLM processing - no cloud required
-- **Customizable Characters**: Import custom character packs or use built-in ones
-- **System Integration**: Monitor system resources, manage files, install software
-- **Web Automation**: Browse the web and automate tasks with Playwright
-- **Comprehensive Dashboard**: Control everything from a beautiful Material UI interface
-- **Privacy First**: Everything runs locally on your machine
+- AI-Powered Assistant: Uses Ollama for local LLM
+- Customizable Characters: Import or use built-in characters 
+- System Integration: Monitor system resources, manage files, install software
+- Web Automation: Browse the web and automate tasks with Playwright
+- Comprehensive Dashboard: Control everything from a beautiful Material UI interface
+- Privacy First: Everything runs locally on your machine
 
 ## Architecture
 
@@ -303,8 +305,5 @@ Contributions welcome! Please:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
----
-
-**Made with ❤️ and nostalgia**
 
 *"It looks like you're trying to build something awesome. Would you like help with that?"* 📎
