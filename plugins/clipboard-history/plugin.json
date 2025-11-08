@@ -1,0 +1,58 @@
+{
+  "id": "clipboard-history",
+  "name": "Clipboard History",
+  "version": "1.0.0",
+  "description": "Tracks clipboard history and provides quick access to recently copied items",
+  "author": {
+    "name": "Clippy Revival Team",
+    "email": "team@clippyrevival.com",
+    "url": "https://github.com/cLeffNote44/clippy-revival"
+  },
+  "entry": "index.js",
+  "icon": "icon.png",
+  "permissions": [
+    "clipboard.read",
+    "clipboard.write",
+    "notifications.show",
+    "storage.read",
+    "storage.write",
+    "scheduler.create",
+    "ai.chat"
+  ],
+  "settings": [
+    {
+      "key": "max_history_items",
+      "type": "number",
+      "label": "Max History Items",
+      "description": "Maximum number of clipboard items to store",
+      "default": 50
+    },
+    {
+      "key": "check_interval",
+      "type": "number",
+      "label": "Check Interval (seconds)",
+      "description": "How often to check clipboard for changes",
+      "default": 2
+    },
+    {
+      "key": "enable_notifications",
+      "type": "boolean",
+      "label": "Enable Notifications",
+      "description": "Show notification when new item is copied",
+      "default": false
+    },
+    {
+      "key": "ai_categorization",
+      "type": "boolean",
+      "label": "AI Categorization",
+      "description": "Use AI to categorize clipboard items",
+      "default": false
+    }
+  ],
+  "category": "productivity",
+  "license": "MIT",
+  "keywords": ["clipboard", "history", "productivity", "copy-paste"],
+  "minClippyVersion": "1.0.0",
+  "homepage": "https://github.com/cLeffNote44/clippy-revival",
+  "repository": "https://github.com/cLeffNote44/clippy-revival"
+}

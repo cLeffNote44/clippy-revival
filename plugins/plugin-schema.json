@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clippy Plugin Manifest",
+  "description": "Schema for Clippy Revival plugin manifests",
+  "type": "object",
+  "required": ["id", "name", "version", "entry", "author"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique plugin identifier (lowercase, alphanumeric, hyphens only)",
+      "examples": ["github-notifier", "clipboard-manager"]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "description": "Human-readable plugin name",
+      "examples": ["GitHub Notifier", "Smart Clipboard"]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (x.y.z)",
+      "examples": ["1.0.0", "2.1.3"]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Short plugin description"
+    },
+    "author": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Author email"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Author website"
+        }
+      }
+    },
+    "entry": {
+      "type": "string",
+      "description": "Main plugin file (JavaScript)",
+      "examples": ["index.js", "main.js"]
+    },
+    "icon": {
+      "type": "string",
+      "description": "Plugin icon file (PNG, SVG)",
+      "examples": ["icon.png", "icon.svg"]
+    },
+    "permissions": {
+      "type": "array",
+      "description": "Required permissions",
+      "items": {
+        "type": "string",
+        "enum": [
+          "ai.chat",
+          "ai.models",
+          "system.metrics",
+          "system.execute",
+          "files.read",
+          "files.write",
+          "files.delete",
+          "network.http",
+          "network.websocket",
+          "notifications.show",
+          "clipboard.read",
+          "clipboard.write",
+          "scheduler.create",
+          "scheduler.read",
+          "storage.read",
+          "storage.write"
+        ]
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "settings": {
+      "type": "array",
+      "description": "Plugin settings schema",
+      "items": {
+        "type": "object",
+        "required": ["key", "type", "label"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Setting key"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "select"],
+            "description": "Setting type"
+          },
+          "label": {
+            "type": "string",
+            "description": "Setting label"
+          },
+          "description": {
+            "type": "string",
+            "description": "Setting description"
+          },
+          "default": {
+            "description": "Default value"
+          },
+          "options": {
+            "type": "array",
+            "description": "Options for select type",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "description": "Option value"
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Option label"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Plugin dependencies",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "minClippyVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Minimum Clippy version required",
+      "examples": ["1.0.0"]
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "Plugin homepage URL"
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source code repository URL"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier",
+      "examples": ["MIT", "Apache-2.0", "GPL-3.0"]
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Keywords for plugin discovery",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "productivity",
+        "automation",
+        "utilities",
+        "social",
+        "entertainment",
+        "development",
+        "system",
+        "other"
+      ],
+      "description": "Plugin category"
+    }
+  }
+}

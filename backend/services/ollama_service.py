@@ -1,12 +1,22 @@
 import ollama
 from typing import Dict, List, Optional, AsyncGenerator
 import json
+from services.conversation_db import get_conversation_db
+from services.logger import get_logger
+
+logger = get_logger("ollama")
 
 class OllamaService:
-    def __init__(self, agent_service=None):
+    def __init__(self, agent_service=None, use_persistence=True):
         self.active_model = "llama3.2"
-        self.conversations: Dict[str, List[Dict]] = {}
+        self.conversations: Dict[str, List[Dict]] = {}  # In-memory cache
         self.agent_service = agent_service
+        self.use_persistence = use_persistence
+
+        # Initialize database if persistence is enabled
+        if self.use_persistence:
+            self.db = get_conversation_db()
+            logger.info("OllamaService initialized with persistent storage")
         
         # Base system prompt for Clippy
         self.base_prompt = """You are Clippy, a helpful AI assistant integrated into Windows. 
@@ -52,8 +62,8 @@ Keep responses brief unless asked for details."""
             return False
 
     async def chat(
-        self, 
-        message: str, 
+        self,
+        message: str,
         session_id: str = "default",
         tools_allowed: bool = True
     ) -> Dict:
@@ -61,45 +71,62 @@ Keep responses brief unless asked for details."""
         try:
             # Initialize conversation if needed
             if session_id not in self.conversations:
-                self.conversations[session_id] = []
-            
+                if self.use_persistence:
+                    # Load from database or create new session
+                    history = self.db.get_session_history(session_id)
+                    if not history:
+                        self.db.create_session(session_id, self.active_model)
+                    self.conversations[session_id] = history
+                else:
+                    self.conversations[session_id] = []
+
+            # Save user message to database
+            if self.use_persistence:
+                self.db.add_message(session_id, "user", message)
+
             # Add user message
             self.conversations[session_id].append({
                 "role": "user",
                 "content": message
             })
-            
+
             # Prepare messages with system prompt
             messages = [
                 {"role": "system", "content": self._get_system_prompt()}
             ] + self.conversations[session_id]
-            
+
             # Get response from Ollama
             response = ollama.chat(
                 model=self.active_model,
                 messages=messages
             )
-            
+
             assistant_message = response['message']['content']
-            
+
+            # Save assistant message to database
+            if self.use_persistence:
+                self.db.add_message(session_id, "assistant", assistant_message)
+
             # Add assistant response to conversation
             self.conversations[session_id].append({
                 "role": "assistant",
                 "content": assistant_message
             })
-            
+
             # Check if response contains a tool call
             tool_call = self._extract_tool_call(assistant_message)
-            
+
+            logger.info(f"Chat message processed for session {session_id}")
+
             return {
                 "role": "assistant",
                 "content": assistant_message,
                 "tool_call": tool_call,
                 "session_id": session_id
             }
-            
+
         except Exception as e:
-            print(f"Error in chat: {e}")
+            logger.error(f"Error in chat: {e}", exc_info=True)
             return {
                 "role": "assistant",
                 "content": f"I encountered an error: {str(e)}",
@@ -171,6 +198,22 @@ Keep responses brief unless asked for details."""
         """Clear conversation history"""
         if session_id in self.conversations:
             del self.conversations[session_id]
+
+        if self.use_persistence:
+            self.db.delete_session(session_id)
+            logger.info(f"Cleared conversation {session_id}")
+
+    def get_conversation_stats(self, session_id: str) -> Optional[Dict]:
+        """Get statistics for a conversation"""
+        if self.use_persistence:
+            return self.db.get_session_stats(session_id)
+        return None
+
+    def list_conversations(self, limit: int = 50) -> List[Dict]:
+        """List all conversations"""
+        if self.use_persistence:
+            return self.db.list_sessions(limit)
+        return []
 
     async def pull_model(self, model_name: str) -> bool:
         """Pull a model from Ollama library"""

@@ -12,7 +12,16 @@ const CharacterAvatar = ({
   const animationRef = useRef(null);
   const containerRef = useRef(null);
 
-  const animation = pack?.animations?.[state] || pack?.animations?.idle;
+  // Get animation with fallback support
+  let animation = pack?.animations?.[state];
+
+  // If animation has a fallback defined, use the fallback animation instead
+  if (animation?.fallback && pack?.animations) {
+    animation = pack.animations[animation.fallback];
+  }
+
+  // Final fallback to idle if no animation found
+  animation = animation || pack?.animations?.idle;
 
   useEffect(() => {
     if (!animation) return;
@@ -171,6 +180,32 @@ const CharacterAvatar = ({
             opacity: isLoaded ? 1 : 0,
             transition: 'opacity 0.3s ease-in-out',
             imageRendering: 'pixelated'
+          }}
+        />
+      </div>
+    );
+  }
+
+  // Render SVG animation (static or animated SVG file)
+  if (animation.type === 'svg') {
+    const svgFile = animation.file || `${state}.svg`;
+
+    return (
+      <div ref={containerRef} style={containerStyle}>
+        <img
+          src={`character-packs/${pack.id}/${svgFile}`}
+          alt={`${pack.name} - ${state}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            opacity: 1,
+            transition: 'opacity 0.3s ease-in-out'
+          }}
+          onLoad={() => setIsLoaded(true)}
+          onError={(e) => {
+            console.warn(`Failed to load SVG for ${state}, using fallback`);
+            // SVG failed to load, component will use fallback via state
           }}
         />
       </div>

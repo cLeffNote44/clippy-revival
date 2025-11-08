@@ -1,3 +1,6 @@
+# Python Version Requirement: 3.12.x (3.12.0 or higher, but below 3.14)
+# Specified in app.py version check
+
 # Core Framework
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
@@ -31,6 +34,12 @@ websockets==12.0
 
 # Development Tools
 python-dotenv==1.0.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
 
 # Build Tools (for packaging)
 pyinstaller==6.16.0

@@ -47,6 +47,24 @@
       "type": "svg",
       "loop": false,
       "duration": 800
+    },
+    "work": {
+      "type": "svg",
+      "loop": true,
+      "duration": 1500,
+      "fallback": "think"
+    },
+    "success": {
+      "type": "svg",
+      "loop": false,
+      "duration": 1000,
+      "fallback": "wave"
+    },
+    "error": {
+      "type": "svg",
+      "loop": false,
+      "duration": 1000,
+      "fallback": "idle"
     }
   },
   "sounds": {
