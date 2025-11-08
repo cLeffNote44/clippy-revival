@@ -2,7 +2,7 @@ __Clippy Revival__
 
 *"It looks like you're trying to build something awesome. Would you like help with that?"* 📎
 
-Remember that annoying bloat on your childhook PC? Well I recreated him. Only now, a modern Clippy assistant, powered by local AI and built to be customized, and actually helpful. 
+Remember that annoying bloat on your childhook PC? Well I recreated him. Only now, he's powered by local AI and built to be customized, and actually helpful. 
 
 ## Features
 
@@ -283,11 +283,8 @@ npm run lint
 - [ ] Performance optimizations
 
 ## Credits
-
-- **Inspiration:** Microsoft's original Clippy (1997-2007)
 - **Built with:** [Electron](https://electronjs.org), [React](https://react.dev), [FastAPI](https://fastapi.tiangolo.com)
 - **AI powered by:** [Ollama](https://ollama.ai)
-- **Icons:** Material Design Icons
 
 ## License
 
