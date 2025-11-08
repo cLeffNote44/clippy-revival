@@ -49,7 +49,7 @@ Remember that annoying bloat on your childhook PC? Well I recreated him. Only no
 ### Prerequisites
 
 - Node.js v20 LTS (20.x) and npm v9+
-- Python 3.12
+- Python 3.12 (3.12.0 or higher, but below 3.14)
 - Ollama installed and running
 - Git
 - Windows 10/11

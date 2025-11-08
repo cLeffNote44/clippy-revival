@@ -7,6 +7,10 @@ import Dashboard from './pages/Dashboard';
 import BuddyWindow from './pages/BuddyWindow';
 import Settings from './pages/Settings';
 import Characters from './pages/Characters';
+import Scheduler from './pages/Scheduler';
+
+// Import components
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Import store
 import { useAppStore } from './store/appStore';
@@ -38,21 +42,28 @@ function App() {
 
   if (isBuddyWindow) {
     return (
-      <Box sx={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-        <BuddyWindow />
-      </Box>
+      <ErrorBoundary>
+        <Box sx={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+          <BuddyWindow />
+        </Box>
+      </ErrorBoundary>
     );
   }
 
+  const backendUrl = useAppStore((state) => state.backendUrl);
+
   return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/characters" element={<Characters />} />
-      <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
-      <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
-      <Route path="/settings" element={<Settings />} />
-    </Routes>
+    <ErrorBoundary>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/characters" element={<Characters />} />
+        <Route path="/scheduler" element={<Scheduler backendUrl={backendUrl} />} />
+        <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
+        <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </ErrorBoundary>
   );
 }
 

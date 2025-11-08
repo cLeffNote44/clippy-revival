@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Typography,
@@ -19,6 +20,7 @@ import {
 import { useAppStore } from '../store/appStore';
 
 function Settings() {
+  const navigate = useNavigate();
   const { backendUrl } = useAppStore();
   const [models, setModels] = useState([]);
   const [activeModel, setActiveModel] = useState('');
@@ -196,16 +198,24 @@ function Settings() {
         <Typography variant="h6" gutterBottom>
           Character
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Customize Clippy&apos;s appearance and behavior
         </Typography>
-        
+
+        <Button
+          variant="contained"
+          sx={{ mt: 2 }}
+          onClick={() => navigate('/characters')}
+        >
+          Manage Characters
+        </Button>
+
         <Button
           variant="outlined"
-          sx={{ mt: 2 }}
-          disabled
+          sx={{ mt: 2, ml: 2 }}
+          onClick={() => navigate('/scheduler')}
         >
-          Manage Characters (Coming Soon)
+          Manage Scheduled Tasks
         </Button>
       </Paper>
 

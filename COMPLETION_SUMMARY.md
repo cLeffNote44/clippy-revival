@@ -141,7 +141,7 @@ All core features, enhancements, and documentation have been implemented. Clippy
 - **Axios** - HTTP client
 
 ### Backend
-- **Python 3.10-3.12** - Runtime
+- **Python 3.12** - Runtime (3.12.0 or higher, but below 3.14)
 - **FastAPI** - Web framework
 - **uvicorn** - ASGI server
 - **Ollama** - Local LLM

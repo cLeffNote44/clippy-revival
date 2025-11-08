@@ -96,7 +96,7 @@ clippy-revival/
 - Webpack 5
 
 **Backend:**
-- Python 3.13
+- Python 3.12
 - FastAPI
 - Ollama (AI)
 - Playwright (web automation)
@@ -106,10 +106,10 @@ clippy-revival/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 24+
-- Python 3.13
+- Node.js v20 LTS (20.x)+
+- Python 3.12 (3.12.0 or higher, but below 3.14)
 - Ollama installed with a model pulled
-- winget (Windows 11)
+- winget (Windows 10/11)
 
 ### Development
 ```bash

@@ -8,6 +8,13 @@ import os
 import sys
 from pathlib import Path
 from typing import Dict, List
+import json
+
+# Import logging
+from services.logger import setup_logging, get_logger
+
+# Setup logger
+logger = get_logger("app")
 
 # Import routers
 from api.ai_router import router as ai_router
@@ -31,26 +38,26 @@ ws_manager = WebSocketManager()
 async def lifespan(app: FastAPI):
     """Manage application lifecycle"""
     # Startup
-    print("Starting background services...")
+    logger.info("Starting background services...")
     asyncio.create_task(system_service.start_monitoring(ws_manager))
-    
+
     # Start scheduler service with default handlers
     scheduler = get_scheduler_service()
     from services.task_handlers import register_default_handlers
     register_default_handlers(scheduler)
     await scheduler.start()
-    print("Scheduler service started with default handlers")
-    
+    logger.info("Scheduler service started with default handlers")
+
     yield
-    
+
     # Shutdown
-    print("Stopping background services...")
+    logger.info("Stopping background services...")
     system_service.stop_monitoring()
     await ws_manager.disconnect_all()
-    
+
     # Stop scheduler
     await scheduler.stop()
-    print("Scheduler service stopped")
+    logger.info("Scheduler service stopped")
 
 # Create FastAPI app
 app = FastAPI(
@@ -109,39 +116,49 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             # Keep the connection alive and handle incoming messages
             data = await websocket.receive_text()
-            
-            # Handle different message types
-            import json
-            message = json.loads(data)  # Safe JSON parsing
-            
+
+            # Handle different message types - with proper error handling
+            try:
+                message = json.loads(data)
+            except json.JSONDecodeError as e:
+                logger.warning(f"Invalid JSON received on WebSocket: {e}")
+                await websocket.send_json({"type": "error", "message": "Invalid JSON"})
+                continue
+
             if message.get("type") == "ping":
                 await websocket.send_json({"type": "pong"})
             elif message.get("type") == "subscribe":
                 # Handle subscription to specific event types
                 event_types = message.get("events", [])
                 ws_manager.subscribe(websocket, event_types)
-            
+                logger.debug(f"WebSocket subscribed to events: {event_types}")
+
     except WebSocketDisconnect:
+        logger.info("WebSocket client disconnected")
         ws_manager.disconnect(websocket)
     except Exception as e:
-        print(f"WebSocket error: {e}")
+        logger.error(f"WebSocket error: {e}", exc_info=True)
         ws_manager.disconnect(websocket)
 
 if __name__ == "__main__":
     # Check Python version
     if sys.version_info < (3, 12):
-        print(f"Error: Python 3.12+ is required. You are using Python {sys.version_info.major}.{sys.version_info.minor}")
+        logger.critical(f"Python 3.12+ is required. You are using Python {sys.version_info.major}.{sys.version_info.minor}")
         sys.exit(1)
     elif sys.version_info >= (3, 14):
-        print(f"Warning: Python {sys.version_info.major}.{sys.version_info.minor} may have compatibility issues")
-    
+        logger.warning(f"Python {sys.version_info.major}.{sys.version_info.minor} may have compatibility issues")
+
     # Get port from environment or use default
     port = int(os.environ.get("PORT", 43110))
-    
+
+    logger.info(f"Starting Clippy Revival Backend on http://127.0.0.1:{port}")
+    logger.info(f"API Documentation: http://127.0.0.1:{port}/docs")
+
     # Run the application
     uvicorn.run(
         "app:app",
         host="127.0.0.1",
         port=port,
-        reload=os.environ.get("NODE_ENV") == "development"
+        reload=os.environ.get("NODE_ENV") == "development",
+        log_level="info"
     )
