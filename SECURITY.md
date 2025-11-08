@@ -16,7 +16,7 @@ We take the security of Clippy Revival seriously. If you have discovered a secur
 - Disclose the vulnerability publicly before it's been fixed
 
 ### DO
-1. Email details to: security@clippyrevival.com
+1. Email details to: cLeffNote44@pm.me
 2. Include:
    - Description of the vulnerability
    - Steps to reproduce
