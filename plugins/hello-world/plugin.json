@@ -1,0 +1,40 @@
+{
+  "id": "hello-world",
+  "name": "Hello World",
+  "version": "1.0.0",
+  "description": "A simple example plugin that demonstrates basic Clippy plugin capabilities",
+  "author": {
+    "name": "Clippy Revival Team",
+    "email": "team@clippyrevival.com",
+    "url": "https://github.com/cLeffNote44/clippy-revival"
+  },
+  "entry": "index.js",
+  "icon": "icon.png",
+  "permissions": [
+    "notifications.show",
+    "storage.read",
+    "storage.write"
+  ],
+  "settings": [
+    {
+      "key": "greeting_message",
+      "type": "string",
+      "label": "Greeting Message",
+      "description": "The message to display when greeting the user",
+      "default": "Hello from Clippy!"
+    },
+    {
+      "key": "show_on_startup",
+      "type": "boolean",
+      "label": "Show on Startup",
+      "description": "Show greeting notification when plugin is enabled",
+      "default": true
+    }
+  ],
+  "category": "utilities",
+  "license": "MIT",
+  "keywords": ["example", "hello-world", "tutorial"],
+  "minClippyVersion": "1.0.0",
+  "homepage": "https://github.com/cLeffNote44/clippy-revival",
+  "repository": "https://github.com/cLeffNote44/clippy-revival"
+}

@@ -25,6 +25,7 @@ from api.web_router import router as web_router
 from api.characters import router as characters_router
 from api.scheduler_router import router as scheduler_router
 from api.health_router import router as health_router
+from api.plugin_router import router as plugin_router
 
 # Import services
 from services.system_service import SystemService
@@ -90,6 +91,7 @@ app.include_router(software_router, prefix="/software", tags=["Software"])
 app.include_router(web_router, prefix="/web", tags=["Web Automation"])
 app.include_router(characters_router, tags=["Characters"])
 app.include_router(scheduler_router, tags=["Scheduler"])
+app.include_router(plugin_router, tags=["Plugins"])
 
 # Mount static files for character assets
 characters_dir = Path(__file__).parent.parent / "characters"

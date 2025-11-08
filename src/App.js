@@ -8,6 +8,7 @@ import BuddyWindow from './pages/BuddyWindow';
 import Settings from './pages/Settings';
 import Characters from './pages/Characters';
 import Scheduler from './pages/Scheduler';
+import PluginManager from './pages/PluginManager';
 
 // Import components
 import ErrorBoundary from './components/ErrorBoundary';
@@ -59,6 +60,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/scheduler" element={<Scheduler backendUrl={backendUrl} />} />
+        <Route path="/plugins" element={<PluginManager />} />
         <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
         <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
         <Route path="/settings" element={<Settings />} />

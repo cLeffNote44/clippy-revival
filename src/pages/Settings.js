@@ -217,6 +217,14 @@ function Settings() {
         >
           Manage Scheduled Tasks
         </Button>
+
+        <Button
+          variant="outlined"
+          sx={{ mt: 2, ml: 2 }}
+          onClick={() => navigate('/plugins')}
+        >
+          Manage Plugins
+        </Button>
       </Paper>
 
       {/* Advanced Settings */}

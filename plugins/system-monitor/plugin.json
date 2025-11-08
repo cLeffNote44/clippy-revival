@@ -1,0 +1,57 @@
+{
+  "id": "system-monitor",
+  "name": "System Monitor",
+  "version": "1.0.0",
+  "description": "Monitors system resources and provides AI-powered insights about system health",
+  "author": {
+    "name": "Clippy Revival Team",
+    "email": "team@clippyrevival.com",
+    "url": "https://github.com/cLeffNote44/clippy-revival"
+  },
+  "entry": "index.js",
+  "icon": "icon.png",
+  "permissions": [
+    "system.metrics",
+    "ai.chat",
+    "notifications.show",
+    "storage.read",
+    "storage.write",
+    "scheduler.create"
+  ],
+  "settings": [
+    {
+      "key": "check_interval",
+      "type": "number",
+      "label": "Check Interval (minutes)",
+      "description": "How often to check system metrics",
+      "default": 5
+    },
+    {
+      "key": "cpu_threshold",
+      "type": "number",
+      "label": "CPU Alert Threshold (%)",
+      "description": "Show alert when CPU usage exceeds this percentage",
+      "default": 80
+    },
+    {
+      "key": "memory_threshold",
+      "type": "number",
+      "label": "Memory Alert Threshold (%)",
+      "description": "Show alert when memory usage exceeds this percentage",
+      "default": 85
+    },
+    {
+      "key": "enable_ai_insights",
+      "type": "boolean",
+      "label": "Enable AI Insights",
+      "description": "Use AI to provide insights about system performance",
+      "default": true
+    }
+  ],
+  "category": "system",
+  "license": "MIT",
+  "keywords": ["monitoring", "system", "performance", "ai"],
+  "minClippyVersion": "1.0.0",
+  "homepage": "https://github.com/cLeffNote44/clippy-revival",
+  "repository": "https://github.com/cLeffNote44/clippy-revival"
+}
