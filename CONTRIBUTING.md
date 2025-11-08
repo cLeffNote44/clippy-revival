@@ -220,7 +220,7 @@ Brief description of changes
 
 ### Reporting Vulnerabilities
 - **DO NOT** create public issues for security vulnerabilities
-- Email security concerns to: security@clippyrevival.com
+- Email security concerns to: cLeffNote44@pm.me
 - Include detailed description and steps to reproduce
 
 ### Security Best Practices
