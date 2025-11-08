@@ -21,7 +21,7 @@ Project maintainers are responsible for clarifying and enforcing our standards.
 This Code of Conduct applies within all community spaces and when representing the project in public.
 
 ## Enforcement
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at conduct@clippyrevival.com. All complaints will be reviewed and investigated promptly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at cLeffNote44@pm.me. All complaints will be reviewed and investigated promptly.
 
 ## Attribution
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org) version 2.1.
