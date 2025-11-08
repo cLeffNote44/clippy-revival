@@ -12,6 +12,7 @@ import PluginManager from './pages/PluginManager';
 import ShortcutsManager from './pages/ShortcutsManager';
 import ClipboardManager from './pages/ClipboardManager';
 import Conversations from './pages/Conversations';
+import WorkflowBuilder from './pages/WorkflowBuilder';
 
 // Import components
 import ErrorBoundary from './components/ErrorBoundary';
@@ -83,6 +84,7 @@ function App() {
         <Route path="/shortcuts" element={<ShortcutsManager />} />
         <Route path="/clipboard" element={<ClipboardManager />} />
         <Route path="/conversations" element={<Conversations />} />
+        <Route path="/workflows" element={<WorkflowBuilder />} />
         <Route path="/tasks" element={<Dashboard activeTab="tasks" />} />
         <Route path="/monitoring" element={<Dashboard activeTab="monitoring" />} />
         <Route path="/settings" element={<Settings />} />

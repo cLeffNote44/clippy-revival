@@ -24,6 +24,8 @@ function Settings() {
   const { backendUrl } = useAppStore();
   const [models, setModels] = useState([]);
   const [activeModel, setActiveModel] = useState('');
+  const [personalities, setPersonalities] = useState({});
+  const [activePersonality, setActivePersonality] = useState('helpful');
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState({
     autoExecuteTools: false,
@@ -34,6 +36,7 @@ function Settings() {
 
   useEffect(() => {
     loadModels();
+    loadPersonalities();
     loadSettings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,6 +55,23 @@ function Settings() {
     }
   };
 
+  const loadPersonalities = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/characters/personalities`);
+      const data = await response.json();
+      setPersonalities(data.personalities || {});
+
+      // Load saved personality from localStorage
+      const saved = localStorage.getItem('clippy-personality');
+      if (saved) {
+        setActivePersonality(saved);
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load personalities:', error);
+    }
+  };
+
   const loadSettings = () => {
     const saved = localStorage.getItem('clippy-settings');
     if (saved) {
@@ -65,7 +85,7 @@ function Settings() {
 
   const handleModelChange = async (event) => {
     const newModel = event.target.value;
-    
+
     try {
       const response = await fetch(`${backendUrl}/ai/model`, {
         method: 'POST',
@@ -80,6 +100,13 @@ function Settings() {
       // eslint-disable-next-line no-console
       console.error('Failed to change model:', error);
     }
+  };
+
+  const handlePersonalityChange = (event) => {
+    const newPersonality = event.target.value;
+    setActivePersonality(newPersonality);
+    localStorage.setItem('clippy-personality', newPersonality);
+    // In a real implementation, this would update the AI system prompt
   };
 
   const handleSettingChange = (key) => (event) => {
@@ -201,6 +228,30 @@ function Settings() {
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Customize Clippy&apos;s appearance and behavior
         </Typography>
+
+        {/* Personality Selector */}
+        <FormControl fullWidth sx={{ mb: 3 }}>
+          <InputLabel>Personality</InputLabel>
+          <Select
+            value={activePersonality}
+            label="Personality"
+            onChange={handlePersonalityChange}
+          >
+            {Object.entries(personalities).map(([id, personality]) => (
+              <MenuItem key={id} value={id}>
+                {personality.name} - {personality.description}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {activePersonality && personalities[activePersonality] && (
+          <Alert severity="info" sx={{ mb: 2 }}>
+            <Typography variant="body2">
+              <strong>{personalities[activePersonality].name}:</strong> {personalities[activePersonality].description}
+            </Typography>
+          </Alert>
+        )}
 
         <Button
           variant="contained"
